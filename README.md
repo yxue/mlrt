@@ -1,7 +1,7 @@
 # mlrt
 ML Runtime
 
-This project tries to implement a distribtued ML runtime.
+This project tries to implement a distributed ML runtime.
 
 ## Python environment
 
@@ -10,8 +10,12 @@ The project uses Python 3.13 and PyTorch.
 
 ```sh
 uv sync --locked
-uv run python src/rl/grpo.py
+uv run --locked python src/rl/grpo.py
 ```
+
+The GRPO example computes a loss and runs backpropagation on synthetic data. It
+prints the device, loss, and gradient norm. It uses MPS when PyTorch detects an
+available MPS device, and CPU otherwise.
 
 `uv run` automatically uses the project-local `.venv`. For an interactive shell:
 
@@ -22,7 +26,7 @@ source .venv/bin/activate
 Check PyTorch and Apple Silicon GPU availability:
 
 ```sh
-uv run python -c "import torch; print(torch.__version__); print('MPS:', torch.backends.mps.is_available())"
+uv run --locked python -c "import torch; print(torch.__version__); print('MPS:', torch.backends.mps.is_available())"
 ```
 
 Add dependencies with `uv add <package>` and keep `uv.lock` in version control.
@@ -33,7 +37,7 @@ PyTorch uses the default PyPI distribution, following the
 
 ```sh
 uv sync --locked
-uv run pytest -q
+uv run --locked pytest -q
 ```
 
 Tests cover group advantages (sample standard deviation), the K3 KL estimator,
